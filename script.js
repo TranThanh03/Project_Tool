@@ -137,15 +137,15 @@ window.onload = function() {
             return buttonFunction();
         }
         if(dviewEle){
-            alert("Tool đã dừng! Hãy bật lại tool.");
             startEle.style.color = "";
             stopEle.style.color = "red";
+            alert("Stop Tool! Hãy tự hoàn thành task và bật lại Tool.");
             clearInterval(checkInterval);
         }
         if(!audioEle  && !textEle  && !radioEle && !listenEle && !dviewEle && !buttonEle){
-            alert("Tool đã dừng! Hãy bật lại tool.");
             startEle.style.color = "";
             stopEle.style.color = "red";
+            alert("Stop Tool!");
             clearInterval(checkInterval);
         }
     }
@@ -153,15 +153,16 @@ window.onload = function() {
     let checkInterval = setInterval(checkFunction, 145*1000);
 
     startEle.addEventListener('click', function() {
-        checkFunction();
-        checkInterval = setInterval(checkFunction, 145*1000);
         startEle.style.color = "red";
         stopEle.style.color = "";
+        alert("Run Tool.");
+        checkFunction();
+        checkInterval = setInterval(checkFunction, 145*1000);
     })
     
     stopEle.addEventListener('click', function() {
         clearInterval(checkInterval);
-        alert("Tool đã dừng!");
+        alert("Stop Tool!");
         startEle.style.color = "";
         stopEle.style.color = "red";
     })
