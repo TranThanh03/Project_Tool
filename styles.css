@@ -1,0 +1,15 @@
+.btnElement{
+    position: fixed;
+    top: 20%;
+    left: 90%;
+    border: 2px solid black;
+}
+.btnElement button{
+    color: black;
+    background-color: aqua;
+    font-size: medium;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 8px;
+}

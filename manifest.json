@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Tool",
+  "version": "1.0",
+  "description": "Tool",
+  "content_scripts": [
+    {
+      "matches": ["https://*.eop.edu.vn/*"],
+      "css": ["styles.css"],
+      "js": ["script.js"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "anh.png",
+      "48": "anh.png",
+      "128": "anh.png"
+    }
+  }
+}
