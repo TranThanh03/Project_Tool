@@ -5,16 +5,21 @@
   "description": "Tool",
   "content_scripts": [
     {
-      "matches": ["https://*.eop.edu.vn/*"],
-      "css": ["styles.css"],
-      "js": ["script.js"]
+      "matches": ["https://eop.edu.vn/*"],
+      "css": ["./styles.css"],
+      "js": ["./scr/script.js"]
     }
   ],
   "action": {
     "default_icon": {
-      "16": "anh.png",
-      "48": "anh.png",
-      "128": "anh.png"
+      "16": "./image/logo.png",
+      "48": "./image/logo.png",
+      "128": "./image/logo.png"
     }
+  },
+  "icons": {
+    "16": "./image/logo.png",
+    "48": "./image/logo.png",
+    "128": "./image/logo.png"
   }
 }
