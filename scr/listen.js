@@ -1,4 +1,4 @@
-listenFunction = function() {
+listenFunction = function(variableTimeout) {
     const aDtitle = document.querySelectorAll('.dtitle');
     let currentIndex = 0;
 
@@ -9,5 +9,5 @@ listenFunction = function() {
             variableTimeout = setTimeout(clickNextItem, 10 * 1000);
         }
     }
-    setTimeout(clickNextItem, 10 * 1000);
+    variableTimeout = setTimeout(clickNextItem, 10 * 1000);
 }

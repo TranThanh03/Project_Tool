@@ -1,4 +1,4 @@
-audioFunction = function() {
+audioFunction = function(timeValue, variableTimeout) {
     const playAudio = document.querySelectorAll('i.fa.fa-play-circle.daudio');
     const buttonAudio = document.querySelector(".btn.btn-info.dnut");
     for(let i=0; i<playAudio.length; i++)
@@ -7,5 +7,5 @@ audioFunction = function() {
     }
     variableTimeout = setTimeout(function() {
         buttonAudio.click();
-    }, 120*1000)
+    }, timeValue*1000)
 }

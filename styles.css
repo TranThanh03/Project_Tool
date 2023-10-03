@@ -5,6 +5,8 @@
     border: 2px solid black;
     text-align: center;
     padding: 5px 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
 }
 .btnElements h3{
     color:black;
@@ -12,7 +14,7 @@
 }
 .btnElements input{
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px;
     font-size: medium;
     width: 200px;
@@ -36,4 +38,9 @@
     font-weight: bold;
     border-radius: 5px;
     margin: 8px;
+}
+.btnElements p{
+    position: fixed;
+    font-weight: bold;
+    right: 15px;
 }

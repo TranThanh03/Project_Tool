@@ -1,4 +1,4 @@
-checkboxFunction = function(){    
+checkboxFunction = function(timeValue, variableTimeout){    
     const buttonInfo = document.querySelector(".btn.btn-info.dnut");
     const buttonDanger = document.querySelector(".btn.btn-danger.dnut");
     const valuesArray = [];
@@ -38,5 +38,5 @@ checkboxFunction = function(){
     }, 47*1000);
     variableTimeout = setTimeout(function() {
         buttonInfo.click();
-    }, 90*1000);
+    }, timeValue*1000);
 }
