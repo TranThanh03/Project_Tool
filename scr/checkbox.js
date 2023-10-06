@@ -1,16 +1,18 @@
-checkboxFunction = function(timeValue, variableTimeout){    
+const checkboxFunction = function(timeValue){    
     const buttonInfo = document.querySelector(".btn.btn-info.dnut");
     const buttonDanger = document.querySelector(".btn.btn-danger.dnut");
     const valuesArray = [];
     const deckInputs = document.querySelectorAll('input.deck');
     const deckInss = document.querySelectorAll('.iCheck-helper');
-    deckInputs.forEach(function(deckInput, index) {
-        let valueInput = deckInput.value;
-        if (valueInput.endsWith('0')) {
-            deckInss[index].click();
-        }
-    });
-
+    
+    setTimeout(function() {
+        deckInputs.forEach(function(deckInput, index) {
+            let valueInput = deckInput.value;
+            if (valueInput.endsWith('0')) {
+                deckInss[index].click();
+            }
+        });
+    }, 5*1000);
     setTimeout(function() {
         buttonInfo.click();
     }, 30*1000);
@@ -36,7 +38,7 @@ checkboxFunction = function(timeValue, variableTimeout){
         }
         });
     }, 47*1000);
-    variableTimeout = setTimeout(function() {
+    setTimeout(function() {
         buttonInfo.click();
     }, timeValue*1000);
 }

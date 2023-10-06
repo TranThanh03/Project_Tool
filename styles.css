@@ -34,13 +34,17 @@
     color: black;
     background-color: aqua;
     font-size: medium;
-    border: none;
+    border: 2px solid black;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 7px;
     margin: 8px;
 }
 .btnElements p{
     position: fixed;
     font-weight: bold;
     right: 15px;
+    filter: blur(0.4px);
+}
+.btnElements p:hover{
+    cursor: none;
 }

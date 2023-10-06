@@ -1,14 +1,13 @@
 const htmlTemplate = `
     <div class="btnElements">
         <h3>Tool</h3>
-        <input type="number" id="timeElement" placeholder="Time">
+        <input type="number" id="timeElement" placeholder="Time" required>
         <div id="countDown">--:--</div>
         <button type="button" id="btnStart">Start</button>
         <button type="button" id="btnStop">Stop</button>
         <p>Thànhت</p>
     </div>
 `;
-
 
 window.addEventListener('load', function() {
     const wrapperObject = document.querySelector('#mfooter');
@@ -20,17 +19,14 @@ window.addEventListener('load', function() {
     const startEle = this.document.getElementById('btnStart');
     const stopEle = this.document.getElementById('btnStop');
     let timeValue;
-    let variableTimeout;
     let timeInterval;
-    let additionalTime;
     let countdownInterval;
     let countdownTime;
     
     function initializeCountdown() {
         function startCountdown() {
-            timeValue = this.document.getElementById('timeElement').value;
-            additionalTime = 10;
-            countdownTime = timeValue * 1000 + additionalTime * 1000;
+            timeValue = timeElement.value;
+            countdownTime = timeValue * 1000 + 15*1000;
             updateCountdown();
             countdownInterval = setInterval(updateCountdown, 1000);
         }
@@ -54,53 +50,66 @@ window.addEventListener('load', function() {
         startCountdown();
     }
 
-    checkFunction = function() {
+    const checkNotifi = function() {
+        const notifiEle = document.querySelector('.modal.fade.dgmodal.in button');
+        if(notifiEle){
+            notifiEle.click();
+        }
+    }
+
+    const checkFunction = function() {
         const pronounceEle = document.querySelector(".btn.btn-info.dnut");
         const audioEle = document.querySelector('i.fa.fa-play-circle.daudio');
         const textEle = document.querySelector('.danw.dinline');
         const checkboxEle = document.querySelector('input.deck');
         const listenEle = document.querySelector('.dtitle');
         const dviewEle = document.querySelector('.dview.sortable');
+
+        checkNotifi();
         
         if(audioEle && !listenEle && !dviewEle){
-            return audioFunction(timeValue, variableTimeout);
+            return audioFunction(timeValue);
         }
-        if(textEle){
+        else if(textEle){
             return textFunction(timeValue);
         }
-        if(checkboxEle){
-            return checkboxFunction(timeValue, variableTimeout);
+        else if(checkboxEle){
+            return checkboxFunction(timeValue);
         }
-        if(listenEle && !dviewEle){
-            return listenFunction(variableTimeout);
+        else if(listenEle && !dviewEle){
+            return listenFunction();
         }
-        if(!checkboxEle && pronounceEle && !dviewEle){
-            return pronounceFunction(timeValue, variableTimeout);
+        else if(!checkboxEle && pronounceEle && !dviewEle){
+            return pronounceFunction(timeValue);
         }
-        if(dviewEle){
+        else if(dviewEle){
             alert("Stop Tool! Hãy tự hoàn thành task và bật lại Tool.");
             stopEle.click();
         }
-        if(!audioEle  && !textEle  && !checkboxEle && !listenEle && !dviewEle && !pronounceEle){
+        else{
             stopEle.click();
         }
     }
     
     function checkInterval() {
-        timeInterval = setInterval(checkFunction, timeValue*1000 + 10*1000);
+        timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
     }
     
-    
-
     if(startEle !== null){
         startEle.addEventListener('click', function(e) {
             e.preventDefault();
-            alert("Start Tool");
-            startEle.style.color = "red";
-            stopEle.style.color = "";
-            initializeCountdown();
-            checkFunction();
-            checkInterval();
+            timeValue = timeElement.value;
+            if(timeValue <= 110){
+                alert("Time > 110s");
+            }
+            else{
+                alert("Start Tool");
+                startEle.style.color = "red";
+                stopEle.style.color = "";
+                initializeCountdown();
+                checkFunction();
+                checkInterval();
+            }
         }
     )
     }
@@ -112,7 +121,6 @@ window.addEventListener('load', function() {
             startEle.style.color = "";
             stopEle.style.color = "red";
             clearInterval(timeInterval);
-            clearTimeout(variableTimeout);
             clearInterval(countdownInterval);
             document.getElementById("countDown").innerHTML = "--:--";
         }

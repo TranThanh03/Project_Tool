@@ -1,6 +1,6 @@
-pronounceFunction = function(timeValue, variableTimeout){
+const pronounceFunction = function(timeValue){
     const buttonDanger = document.querySelector(".btn.btn-info.dnut");
-    variableTimeout = setTimeout(function() {
+    setTimeout(function() {
         buttonDanger.click();
     }, timeValue*1000);
 }
