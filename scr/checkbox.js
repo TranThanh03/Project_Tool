@@ -1,4 +1,4 @@
-const checkboxFunction = function(timeValue){    
+const boxFunction = function(timeValue){    
     const buttonInfo = document.querySelector(".btn.btn-info.dnut");
     const buttonDanger = document.querySelector(".btn.btn-danger.dnut");
     const valuesArray = [];

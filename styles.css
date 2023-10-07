@@ -1,7 +1,7 @@
 .btnElements{
     position: fixed;
     top: 20%;
-    left: 85%;
+    left: 83%;
     border: 2px solid black;
     text-align: center;
     padding: 5px 10px;
@@ -24,6 +24,9 @@
     font-size: medium;
     font-weight: 600;
 }
+.btnElements input:required{
+    color: black;
+}
 .btnElements #countDown{
     font-size: 20px;
     font-weight: 600;
@@ -40,9 +43,9 @@
     margin: 8px;
 }
 .btnElements p{
-    position: fixed;
+    position: absolute;
     font-weight: bold;
-    right: 15px;
+    right: 13px;
     filter: blur(0.4px);
 }
 .btnElements p:hover{

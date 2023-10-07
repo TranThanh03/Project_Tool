@@ -50,6 +50,14 @@ window.addEventListener('load', function() {
         startCountdown();
     }
 
+    const checkCaptcha = function(){
+        const captchaEle = document.querySelector('#txtcaptcha');
+        if(captchaEle){
+            const iEle = document.querySelector('.fa.fa-close');
+            iEle.click();
+        }
+    }
+
     const checkNotifi = function() {
         const notifiEle = document.querySelector('.modal.fade.dgmodal.in button');
         if(notifiEle){
@@ -65,7 +73,8 @@ window.addEventListener('load', function() {
         const listenEle = document.querySelector('.dtitle');
         const dviewEle = document.querySelector('.dview.sortable');
 
-        checkNotifi();
+        checkCaptcha();
+        setTimeout = (checkNotifi, 2*1000);
         
         if(audioEle && !listenEle && !dviewEle){
             return audioFunction(timeValue);
@@ -74,7 +83,7 @@ window.addEventListener('load', function() {
             return textFunction(timeValue);
         }
         else if(checkboxEle){
-            return checkboxFunction(timeValue);
+            return boxFunction(timeValue);
         }
         else if(listenEle && !dviewEle){
             return listenFunction();
