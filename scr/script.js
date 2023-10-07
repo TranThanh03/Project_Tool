@@ -74,7 +74,7 @@ window.addEventListener('load', function() {
         const dviewEle = document.querySelector('.dview.sortable');
 
         checkCaptcha();
-        setTimeout = (checkNotifi, 2*1000);
+        setTimeout(checkNotifi, 2*1000);
         
         if(audioEle && !listenEle && !dviewEle){
             return audioFunction(timeValue);

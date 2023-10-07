@@ -46,7 +46,7 @@ const textFunction = function(timeValue) {
     setTimeout(function() {
         for (let i = 0; i < inputElements.length; i++) {
             inputElements[i].value = "a";
-        }
+        };
     }, 5*1000);
     setTimeout(function() {
         buttonInfo.click();

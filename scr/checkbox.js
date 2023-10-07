@@ -30,14 +30,14 @@ const boxFunction = function(timeValue){
     setTimeout(function() {
         let buttonPrimary = document.querySelector(".btn.dnut.btn-primary");
         buttonPrimary.click();
-    }, 45*1000);
+    }, 55*1000);
     setTimeout(function() {
         deckInputs.forEach(function(deckInput, index) {
         if (valuesArray.includes(deckInput.value)) {
             deckInss[index].click();
         }
         });
-    }, 47*1000);
+    }, 60*1000);
     setTimeout(function() {
         buttonInfo.click();
     }, timeValue*1000);
