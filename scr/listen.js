@@ -19,7 +19,7 @@ const listenFunction = function () {
                 }
             }
         } 
-        setTimeout(clickNextItem, 3*1000);
+        setTimeout(clickNextItem, 4*1000);
     } 
     else {
         count = 0;

@@ -1,7 +1,7 @@
 const htmlTemplate = `
     <div class="btnElements">
         <h3>Tool</h3>
-        <input type="number" id="timeElement" placeholder="Time" required>
+        <input type="number" id="timeEle" placeholder="Time">
         <div id="countDown">--:--</div>
         <button type="button" id="btnStart">Start</button>
         <button type="button" id="btnStop">Stop</button>
@@ -22,34 +22,27 @@ window.addEventListener('load', function() {
     let timeInterval;
     let countdownInterval;
     let countdownTime;
+    let timeCountdown;
     
-    function initializeCountdown() {
-        function startCountdown() {
-            timeValue = timeElement.value;
-            countdownTime = timeValue * 1000 + 15*1000;
-            updateCountdown();
-            countdownInterval = setInterval(updateCountdown, 1000);
-        }
-    
-        function updateCountdown() {
-            let minutes = Math.floor((countdownTime % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((countdownTime % (1000 * 60)) / 1000);
-    
-            document.getElementById("countDown").innerHTML = `${minutes}:${seconds}`;
-    
-            countdownTime -= 1000;
-    
-            if (countdownTime < 0) {
-                clearInterval(countdownInterval);
-                startCountdown();
-            }
-        }
-        if(countdownTime < 0){
-            startCountdown();
-        }
-        startCountdown();
+    function startCountdown(timeValue) {
+        countdownTime = timeValue * 1000 + 15*1000;
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
     }
 
+    function updateCountdown() {
+        let minutes = Math.floor((countdownTime % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((countdownTime % (1000 * 60)) / 1000);
+
+        document.getElementById("countDown").innerHTML = `${minutes}:${seconds}`;
+
+        countdownTime -= 1000;
+
+        if (countdownTime < 0) {
+            clearInterval(countdownInterval);
+        }
+    }
+    
     const checkCaptcha = function(){
         const captchaEle = document.querySelector('#txtcaptcha');
         if(captchaEle){
@@ -93,6 +86,7 @@ window.addEventListener('load', function() {
         }
         else if(dviewEle){
             alert("Stop Tool! Hãy tự hoàn thành task và bật lại Tool.");
+            clearInterval(countdownInterval);
             stopEle.click();
         }
         else{
@@ -102,12 +96,14 @@ window.addEventListener('load', function() {
     
     function checkInterval() {
         timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
+        timeCountdown = setInterval( function() {
+            startCountdown(timeValue)
+        }, timeValue*1000 + 15*1000);
     }
     
     if(startEle !== null){
         startEle.addEventListener('click', function(e) {
-            e.preventDefault();
-            timeValue = timeElement.value;
+            timeValue = timeEle.value;
             if(timeValue <= 110){
                 alert("Time > 110s");
             }
@@ -115,24 +111,25 @@ window.addEventListener('load', function() {
                 alert("Start Tool");
                 startEle.style.color = "red";
                 stopEle.style.color = "";
-                initializeCountdown();
+                startCountdown(timeValue);
                 checkFunction();
+                document.getElementById("countDown").style.color = '';
                 checkInterval();
             }
-        }
-    )
+            e.preventDefault();
+        });
     }
     
     if(stopEle !== null){
         stopEle.addEventListener('click', function(e) {
-            e.preventDefault();
             alert("Stop Tool!");
             startEle.style.color = "";
             stopEle.style.color = "red";
             clearInterval(timeInterval);
-            clearInterval(countdownInterval);
-            document.getElementById("countDown").innerHTML = "--:--";
-        }
-        )
+            clearInterval(timeCountdown);
+            document.getElementById("countDown").style.color = 'red';
+            e.preventDefault();
+        });
     }
 })
+
