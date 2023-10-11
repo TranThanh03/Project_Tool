@@ -1,6 +1,13 @@
-const pronounceFunction = function(timeValue){
+let checkTimeoutProno;
+const pronounceFunction = function(timeValue, checkStop){
     const buttonDanger = document.querySelector(".btn.btn-info.dnut");
-    setTimeout(function() {
-        buttonDanger.click();
-    }, timeValue*1000);
+    
+    if(checkStop === true) {
+        clearTimeout(checkTimeoutProno);
+    }
+    else {
+        checkTimeoutProno = setTimeout(() => {
+            buttonDanger.click();
+        }, timeValue*1000);
+    }
 }

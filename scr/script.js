@@ -1,7 +1,7 @@
 const htmlTemplate = `
     <div class="btnElements">
         <h3>Tool</h3>
-        <input type="number" id="timeEle" placeholder="Time">
+        <input type="number" id="timeElement" placeholder="Time">
         <div id="countDown">--:--</div>
         <button type="button" id="btnStart">Start</button>
         <button type="button" id="btnStop">Stop</button>
@@ -16,34 +16,34 @@ window.addEventListener('load', function() {
         wrapperObject.insertAdjacentHTML('beforeend', htmlTemplate);
     }
     
+    let timeValue = 0;
+    let countdownTime;
+    let countdownInter;
+    let timeInterval;
+    let timeoutValue;
+    let checkStop;
+
     const startEle = this.document.getElementById('btnStart');
     const stopEle = this.document.getElementById('btnStop');
-    let timeValue;
-    let timeInterval;
-    let countdownInterval;
-    let countdownTime;
-    let timeCountdown;
+    const timeEle = this.document.getElementById('timeElement');
+    let countdownEle = document.getElementById("countDown");
     
-    function startCountdown(timeValue) {
-        countdownTime = timeValue * 1000 + 15*1000;
-        updateCountdown();
-        countdownInterval = setInterval(updateCountdown, 1000);
+    const startCountdown = function() {
+        checkCountdown();
+        countdownInter = setInterval(checkCountdown, 1000);
     }
 
-    function updateCountdown() {
-        let minutes = Math.floor((countdownTime % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((countdownTime % (1000 * 60)) / 1000);
-
-        document.getElementById("countDown").innerHTML = `${minutes}:${seconds}`;
-
-        countdownTime -= 1000;
-
-        if (countdownTime < 0) {
-            clearInterval(countdownInterval);
+    const checkCountdown = function() {
+        countdownEle.innerText = countdownTime;
+        countdownTime--;
+        if(countdownTime < 1){
+            countdownTime = timeValue;
+            clearInterval(countdownInter);
         }
     }
-    
-    const checkCaptcha = function(){
+
+
+    const checkCaptcha = function() {
         const captchaEle = document.querySelector('#txtcaptcha');
         if(captchaEle){
             const iEle = document.querySelector('.fa.fa-close');
@@ -58,6 +58,11 @@ window.addEventListener('load', function() {
         }
     }
 
+    function checkInterval() {
+        timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
+        timeoutValue = setInterval(startCountdown, timeValue*1000);
+    }
+
     const checkFunction = function() {
         const pronounceEle = document.querySelector(".btn.btn-info.dnut");
         const audioEle = document.querySelector('i.fa.fa-play-circle.daudio');
@@ -70,51 +75,48 @@ window.addEventListener('load', function() {
         setTimeout(checkNotifi, 2*1000);
         
         if(audioEle && !listenEle && !dviewEle){
-            return audioFunction(timeValue);
+            return audioFunction(timeValue, checkStop);
         }
         else if(textEle){
-            return textFunction(timeValue);
+            return textFunction(timeValue, checkStop);
         }
         else if(checkboxEle){
-            return boxFunction(timeValue);
+            return boxFunction(timeValue, checkStop);
         }
         else if(listenEle && !dviewEle){
-            return listenFunction();
+            return listenFunction(checkStop);
         }
         else if(!checkboxEle && pronounceEle && !dviewEle){
-            return pronounceFunction(timeValue);
+            return pronounceFunction(timeValue, checkStop);
         }
         else if(dviewEle){
-            alert("Stop Tool! Hãy tự hoàn thành task và bật lại Tool.");
-            clearInterval(countdownInterval);
-            stopEle.click();
+            clearInterval(timeInterval);
+            clearInterval(countdownInter);
+            alert("Hãy tự hoàn thành Task và bật lại Tool!");
+            countdownEle.innerText = "--:--";
+            startEle.style.color = "";
+            stopEle.style.color = "red";
         }
         else{
             stopEle.click();
         }
     }
     
-    function checkInterval() {
-        timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
-        timeCountdown = setInterval( function() {
-            startCountdown(timeValue)
-        }, timeValue*1000 + 15*1000);
-    }
-    
     if(startEle !== null){
         startEle.addEventListener('click', function(e) {
             timeValue = timeEle.value;
+            countdownTime = timeValue;
             if(timeValue <= 110){
                 alert("Time > 110s");
             }
             else{
                 alert("Start Tool");
+                checkStop = false;
+                startCountdown();
+                checkFunction();
+                checkInterval();
                 startEle.style.color = "red";
                 stopEle.style.color = "";
-                startCountdown(timeValue);
-                checkFunction();
-                document.getElementById("countDown").style.color = '';
-                checkInterval();
             }
             e.preventDefault();
         });
@@ -122,12 +124,15 @@ window.addEventListener('load', function() {
     
     if(stopEle !== null){
         stopEle.addEventListener('click', function(e) {
+            checkStop = true;
+            checkFunction();
+            clearInterval(timeInterval);
+            clearInterval(timeoutValue);
+            clearInterval(countdownInter);
             alert("Stop Tool!");
             startEle.style.color = "";
             stopEle.style.color = "red";
-            clearInterval(timeInterval);
-            clearInterval(timeCountdown);
-            document.getElementById("countDown").style.color = 'red';
+            countdownEle.innerText = "--:--";
             e.preventDefault();
         });
     }

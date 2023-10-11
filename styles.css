@@ -16,6 +16,7 @@
     border: 2px solid black;
     border-radius: 10px;
     padding: 5px;
+    outline: none;
     font-size: medium;
     width: 200px;
     color: black;
@@ -26,6 +27,7 @@
     font-weight: 600;
 }
 .btnElements #countDown{
+    width: 200px;
     font-size: 20px;
     font-weight: 600;
     color: black;
