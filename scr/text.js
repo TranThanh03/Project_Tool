@@ -34,7 +34,7 @@ const textFunction = function(timeValue, checkStop) {
 
                     reader.onload = function (e) {
                     Tesseract.recognize(e.target.result, 'eng').then(({ data: { text } }) => {
-                        let newText = text.replace(/\|/g, 'I').replace(/\n/g, '').replace(/Cc/g, 'C').replace(/Intemnet/g, 'Internet').replace(/intemnet/g, 'internet');
+                        let newText = text.replace(/\|/g, 'I').replace(/\n/g, '').replace(/Cc/g, 'C').replace(/Intemnet/g, 'Internet').replace(/intemnet/g, 'internet').replace(/Whois/g, 'Who is').replace(/Itis/g, 'It is').replace(/Il/g, "I'll");
                         arrayText.push(newText);
                         resolve();
                     });

@@ -1,7 +1,7 @@
 const htmlTemplate = `
     <div class="btnElements">
         <h3>Tool</h3>
-        <input type="number" id="timeElement" placeholder="Time">
+        <input type="text" id="timeElement" placeholder="Time">
         <div id="countDown">--:--</div>
         <button type="button" id="btnStart">Start</button>
         <button type="button" id="btnStop">Stop</button>
@@ -10,38 +10,40 @@ const htmlTemplate = `
 `;
 
 window.addEventListener('load', function() {
-    const wrapperObject = document.querySelector('#mfooter');
+    const wrapperObject = document.querySelector('body > div'); //#mfooter
 
     if (wrapperObject !== null) {
         wrapperObject.insertAdjacentHTML('beforeend', htmlTemplate);
     }
     
     let timeValue = 0;
-    let countdownTime;
     let countdownInter;
     let timeInterval;
     let timeoutValue;
     let checkStop;
+    let timeStop;
 
     const startEle = this.document.getElementById('btnStart');
     const stopEle = this.document.getElementById('btnStop');
     const timeEle = this.document.getElementById('timeElement');
     let countdownEle = document.getElementById("countDown");
     
-    const startCountdown = function() {
+    const startCountdown = function(timeValue) {
+        const nowStop = new Date();
+        timeStop = nowStop.getHours()*3600 + nowStop.getMinutes()*60 + nowStop.getSeconds() + timeValue + 15;
         checkCountdown();
         countdownInter = setInterval(checkCountdown, 1000);
     }
 
     const checkCountdown = function() {
+        const nowStart = new Date();
+        const timeStart = nowStart.getHours()*3600 + nowStart.getMinutes()*60 + nowStart.getSeconds();
+        let countdownTime = (timeStop - timeStart)
         countdownEle.innerText = countdownTime;
-        countdownTime--;
         if(countdownTime < 1){
-            countdownTime = timeValue;
             clearInterval(countdownInter);
         }
     }
-
 
     const checkCaptcha = function() {
         const captchaEle = document.querySelector('#txtcaptcha');
@@ -59,8 +61,8 @@ window.addEventListener('load', function() {
     }
 
     function checkInterval() {
-        timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
-        timeoutValue = setInterval(startCountdown, timeValue*1000);
+        //timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
+        timeoutValue = setInterval(startCountdown, timeValue*1000 + 15*1000);
     }
 
     const checkFunction = function() {
@@ -105,18 +107,17 @@ window.addEventListener('load', function() {
     if(startEle !== null){
         startEle.addEventListener('click', function(e) {
             timeValue = timeEle.value;
-            countdownTime = timeValue;
             if(timeValue <= 110){
                 alert("Time > 110s");
             }
             else{
                 alert("Start Tool");
-                checkStop = false;
-                startCountdown();
-                checkFunction();
-                checkInterval();
                 startEle.style.color = "red";
                 stopEle.style.color = "";
+                //checkStop = false;
+                startCountdown(timeValue);
+                //checkFunction();
+                checkInterval();
             }
             e.preventDefault();
         });
@@ -124,9 +125,9 @@ window.addEventListener('load', function() {
     
     if(stopEle !== null){
         stopEle.addEventListener('click', function(e) {
-            checkStop = true;
-            checkFunction();
-            clearInterval(timeInterval);
+            //checkStop = true;
+            //checkFunction();
+            //clearInterval(timeInterval);
             clearInterval(timeoutValue);
             clearInterval(countdownInter);
             alert("Stop Tool!");
