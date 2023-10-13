@@ -26,21 +26,14 @@
     font-size: medium;
     font-weight: 600;
 }
-.btnElements #countDown{
-    width: 200px;
-    font-size: 20px;
-    font-weight: 600;
-    color: black;
-    margin-top: 5px;
-}
 .btnElements button{
     color: black;
-    background-color: aqua;
+    background-color: #AFEEEE;
     font-size: medium;
     border: 2px solid black;
     font-weight: bold;
     border-radius: 7px;
-    margin: 8px;
+    margin: 22px;
 }
 .btnElements p{
     position: absolute;

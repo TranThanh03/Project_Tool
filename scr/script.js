@@ -1,8 +1,7 @@
 const htmlTemplate = `
     <div class="btnElements">
         <h3>Tool</h3>
-        <input type="text" id="timeElement" placeholder="Time">
-        <div id="countDown">--:--</div>
+        <input type="number" id="timeElement" placeholder="Time">
         <button type="button" id="btnStart">Start</button>
         <button type="button" id="btnStop">Stop</button>
         <p>Thànhت</p>
@@ -10,41 +9,21 @@ const htmlTemplate = `
 `;
 
 window.addEventListener('load', function() {
-    const wrapperObject = document.querySelector('body > div'); //#mfooter
+    const wrapperObject = document.querySelector('#mfooter');
 
     if (wrapperObject !== null) {
         wrapperObject.insertAdjacentHTML('beforeend', htmlTemplate);
     }
     
     let timeValue = 0;
-    let countdownInter;
     let timeInterval;
-    let timeoutValue;
     let checkStop;
-    let timeStop;
 
     const startEle = this.document.getElementById('btnStart');
     const stopEle = this.document.getElementById('btnStop');
     const timeEle = this.document.getElementById('timeElement');
-    let countdownEle = document.getElementById("countDown");
+    const btnEle = this.document.querySelector('.btnElements');
     
-    const startCountdown = function(timeValue) {
-        const nowStop = new Date();
-        timeStop = nowStop.getHours()*3600 + nowStop.getMinutes()*60 + nowStop.getSeconds() + timeValue + 15;
-        checkCountdown();
-        countdownInter = setInterval(checkCountdown, 1000);
-    }
-
-    const checkCountdown = function() {
-        const nowStart = new Date();
-        const timeStart = nowStart.getHours()*3600 + nowStart.getMinutes()*60 + nowStart.getSeconds();
-        let countdownTime = (timeStop - timeStart)
-        countdownEle.innerText = countdownTime;
-        if(countdownTime < 1){
-            clearInterval(countdownInter);
-        }
-    }
-
     const checkCaptcha = function() {
         const captchaEle = document.querySelector('#txtcaptcha');
         if(captchaEle){
@@ -61,8 +40,7 @@ window.addEventListener('load', function() {
     }
 
     function checkInterval() {
-        //timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
-        timeoutValue = setInterval(startCountdown, timeValue*1000 + 15*1000);
+        timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
     }
 
     const checkFunction = function() {
@@ -92,12 +70,8 @@ window.addEventListener('load', function() {
             return pronounceFunction(timeValue, checkStop);
         }
         else if(dviewEle){
-            clearInterval(timeInterval);
-            clearInterval(countdownInter);
             alert("Hãy tự hoàn thành Task và bật lại Tool!");
-            countdownEle.innerText = "--:--";
-            startEle.style.color = "";
-            stopEle.style.color = "red";
+            stopEle.click();
         }
         else{
             stopEle.click();
@@ -112,11 +86,11 @@ window.addEventListener('load', function() {
             }
             else{
                 alert("Start Tool");
-                startEle.style.color = "red";
+                startEle.style.color = "#00CED1";
                 stopEle.style.color = "";
-                //checkStop = false;
-                startCountdown(timeValue);
-                //checkFunction();
+                btnEle.style.border = "2px solid #00CED1";
+                checkStop = false;
+                checkFunction();
                 checkInterval();
             }
             e.preventDefault();
@@ -125,15 +99,19 @@ window.addEventListener('load', function() {
     
     if(stopEle !== null){
         stopEle.addEventListener('click', function(e) {
-            //checkStop = true;
-            //checkFunction();
-            //clearInterval(timeInterval);
-            clearInterval(timeoutValue);
-            clearInterval(countdownInter);
-            alert("Stop Tool!");
-            startEle.style.color = "";
-            stopEle.style.color = "red";
-            countdownEle.innerText = "--:--";
+            timeValue = timeEle.value;
+            if(timeValue > 0){
+                checkStop = true;
+                checkFunction();
+                clearInterval(timeInterval);
+                alert("Stop Tool!");
+                startEle.style.color = "";
+                stopEle.style.color = "red";
+                btnEle.style.border = "2px solid red";
+            }
+            else {
+                alert("Time > 0");
+            }
             e.preventDefault();
         });
     }

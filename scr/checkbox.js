@@ -19,7 +19,7 @@ const boxFunction = function(timeValue, checkStop){
                     deckInss[index].click();
                 }
             });
-        }, 10*1000);
+        }, 5*1000);
         
         checkTimeoutBox[1] = setTimeout(() => {
             buttonInfo.click();
