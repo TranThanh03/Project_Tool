@@ -2,8 +2,8 @@ let count = 0;
 let checkTimeoutListen = [];
 const listenFunction = function (checkStop) {
     if(checkStop === true) {
-        for(let j=0; i<2; i++) {
-            clearTimeout(checkTimeoutListen[i]);
+        for(let j=0; j<2; j++) {
+            clearTimeout(checkTimeoutListen[j]);
         }
     }
     else {
