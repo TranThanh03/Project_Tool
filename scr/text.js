@@ -43,7 +43,7 @@ const textFunction = function(timeValue, checkStop) {
 
                     reader.onload = function (e) {
                     Tesseract.recognize(e.target.result, 'eng').then(({ data: { text } }) => {
-                        let newText = text.replace(/\|/g, 'I').replace(/\n/g, '').replace(/Cc/g, 'C').replace(/Intemnet/g, 'Internet').replace(/intemnet/g, 'internet').replace(/Whois/g, 'Who is').replace(/Itis/g, 'It is').replace(/Il/g, "I'll").replace(/I'l/g, "I'll").replace(/Abit/g, "A bit");
+                        let newText = text.replace(/\|/g, 'I').replace(/\n/g, '').replace(/Cc/g, 'C').replace(/Intemnet/g, 'Internet').replace(/intemnet/g, 'internet').replace(/Whois/g, 'Who is').replace(/Itis/g, 'It is').replace(/Il/g, "I'll").replace(/I'l/g, "I'll").replace(/Interet/g, 'Internet').replace(/A/g, 'A ').replace(/Intemet/g, 'Internet');
                         arrayText.push(newText);
                         resolve();
                     });
@@ -63,8 +63,8 @@ const textFunction = function(timeValue, checkStop) {
     }
     
     if(checkStop === true) {
-        for(let i=0; i<7; i++) {
-            clearTimeout(checkTimeoutText[i]);
+        for(let j=0; j<7; j++) {
+            clearTimeout(checkTimeoutText[j]);
         }
     }
     else {
@@ -94,7 +94,7 @@ const textFunction = function(timeValue, checkStop) {
         checkTimeoutText[5] = setTimeout(() => {
             for (let i = 0; i < inputElements.length; i++) {
                 inputElements[i].value = arrayText[i];
-        }
+            }
         }, 105*1000);
         
         checkTimeoutText[6] = setTimeout(() => {

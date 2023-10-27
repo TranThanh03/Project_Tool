@@ -40,6 +40,7 @@ window.addEventListener('load', function() {
     }
 
     function checkInterval() {
+        console.log(timeValue);
         timeInterval = setInterval(checkFunction, timeValue*1000 + 15*1000);
     }
 

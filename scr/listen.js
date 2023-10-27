@@ -12,20 +12,17 @@ const listenFunction = function (checkStop) {
         if (qDtitle) {
             let aDtitle = document.querySelectorAll(`#qid${count} a`);
             let aDan = document.querySelectorAll(`#qid${count} div`);
-
+            checkTimeoutListen[0] = setTimeout(clickNextItem, 4*1000);
             function clickNextItem() {
-                if (i < 4) {
                     aDtitle[i].click();
                     if (aDan[i].style.border === '') {
                         ++count;
                         listenFunction();
                     } else {
                         i++;
-                        checkTimeoutListen[0] = setTimeout(clickNextItem, 1*1000);
+                        checkTimeoutListen[1] = setTimeout(clickNextItem, 1*1000);
                     }
-                }
-            } 
-            checkTimeoutListen[1] = setTimeout(clickNextItem, 4*1000);
+            }
         } 
         else {
             count = 0;

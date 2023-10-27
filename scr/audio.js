@@ -4,8 +4,8 @@ const audioFunction = function(timeValue, checkStop) {
     const buttonAudio = document.querySelector(".btn.btn-info.dnut");
 
     if(checkStop === true) {
-        for(let i=0; i<2; i++) {
-            clearTimeout(checkTimoutAuddio[i]);
+        for(let j=0; j<2; j++) {
+            clearTimeout(checkTimoutAuddio[j]);
         }
     }
     else {

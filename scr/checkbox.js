@@ -7,8 +7,8 @@ const boxFunction = function(timeValue, checkStop){
     const deckInss = document.querySelectorAll('.iCheck-helper');
     
     if(checkStop === true) {
-        for(let i=0; i<7; i++) {
-            clearTimeout(checkTimeoutBox[i]);
+        for(let j=0; j<7; j++) {
+            clearTimeout(checkTimeoutBox[j]);
         }
     }
     else {
